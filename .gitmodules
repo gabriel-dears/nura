@@ -1,0 +1,12 @@
+[submodule "audio_generator_service"]
+	path = audio_generator_service
+	url = https://github.com/gabriel-dears/audio_generator_service.git
+[submodule "summarization_service"]
+	path = summarization_service
+	url = https://github.com/gabriel-dears/summarization_service.git
+[submodule "categorization_service"]
+	path = categorization_service
+	url = https://github.com/gabriel-dears/categorization_service.git
+[submodule "transcription_service"]
+	path = transcription_service
+	url = https://github.com/gabriel-dears/transcription_service.git

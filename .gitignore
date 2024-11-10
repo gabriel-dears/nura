@@ -1,0 +1,9 @@
+audio_generator_service/.idea
+transcription_service/.idea
+summarization_service/.idea
+categorization_service/.idea
+audio_generator_service/__pycache__
+transcription_service/__pycache__
+summarization_service/__pycache__
+categorization_service/__pycache__
+.idea/
