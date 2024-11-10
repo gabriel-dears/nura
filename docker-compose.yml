@@ -1,0 +1,80 @@
+version: '3.8'
+
+services:
+  rabbitmq:
+    image: rabbitmq:3-management
+    container_name: rabbitmq
+    ports:
+      - "5672:5672"  # RabbitMQ service port
+      - "15672:15672"  # RabbitMQ management interface (web UI)
+    networks:
+      - nura_network
+    environment:
+      - RABBITMQ_DEFAULT_USER=user
+      - RABBITMQ_DEFAULT_PASS=pass
+
+  audio_generator_service:
+    image: audio_generator_service:latest
+    container_name: audio_generator_service
+    depends_on:
+      - rabbitmq
+    ports:
+      - "8001:8080"  # Expose port 8004 for the audio generator service
+    environment:
+      - SPRING_RABBITMQ_HOST=rabbitmq
+      - SPRING_RABBITMQ_PORT=5672
+      - SPRING_RABBITMQ_USERNAME=user
+      - SPRING_RABBITMQ_PASSWORD=pass
+      - CLIPS_DIR=/app/clips
+    networks:
+      - nura_network
+
+  transcription_service:
+    image: transcription_service:latest
+    container_name: transcription_service
+    depends_on:
+      - rabbitmq
+    ports:
+      - "8002:8080"  # Expose port 8003 for the transcription service
+    environment:
+      - SPRING_RABBITMQ_HOST=rabbitmq
+      - SPRING_RABBITMQ_PORT=5672
+      - SPRING_RABBITMQ_USERNAME=user
+      - SPRING_RABBITMQ_PASSWORD=pass
+    networks:
+      - nura_network
+
+  summarization_service:
+    image: summarization_service:latest
+    container_name: summarization_service
+    depends_on:
+      - rabbitmq
+    ports:
+      - "8003:8080"  # Expose port 8001 for the summarization service
+    environment:
+      - SPRING_RABBITMQ_HOST=rabbitmq
+      - SPRING_RABBITMQ_PORT=5672
+      - SPRING_RABBITMQ_USERNAME=user
+      - SPRING_RABBITMQ_PASSWORD=pass
+    networks:
+      - nura_network
+
+  categorization_service:
+    image: categorization_service:latest
+    container_name: categorization_service
+    depends_on:
+      - rabbitmq
+    ports:
+      - "8004:8080"  # Expose port 8002 for the categorization service
+    environment:
+      - SPRING_RABBITMQ_HOST=rabbitmq
+      - SPRING_RABBITMQ_PORT=5672
+      - SPRING_RABBITMQ_USERNAME=user
+      - SPRING_RABBITMQ_PASSWORD=pass
+    networks:
+      - nura_network
+
+networks:
+  nura_network:
+    driver: bridge
+
