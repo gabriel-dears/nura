@@ -7,3 +7,4 @@ transcription_service/__pycache__
 summarization_service/__pycache__
 categorization_service/__pycache__
 .idea/
+todo.txt
