@@ -26,6 +26,7 @@ services:
       - SPRING_RABBITMQ_USERNAME=user
       - SPRING_RABBITMQ_PASSWORD=pass
       - CLIPS_DIR=/app/clips
+      - YOUTUBE_API_KEY=[YOUTUBE_API_KEY]
     networks:
       - nura_network
 
